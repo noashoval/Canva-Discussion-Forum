@@ -1,0 +1,130 @@
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+/**
+ * DiscussionPost class
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2021</p>
+ *
+ * @author Enoch Qin Purdue CS
+ * @version December 12, 2021
+ */
+
+public class DiscussionPost {
+    private String topic;
+    private String prompt;
+    private String username;
+    private int postNumber;
+    private int votes;
+    private ArrayList<Reply> replies;
+    private LocalTime timeCreated;
+    private int grade;
+
+    public DiscussionPost(String prompt) {
+        this.topic = topic;
+        this.prompt = prompt;
+        this.votes = 0;
+        this.replies = new ArrayList<Reply>();
+        this.timeCreated = java.time.LocalTime.now();
+    }
+
+    public DiscussionPost(String prompt, String username, int postNumber) {
+        this.topic = topic;
+        this.postNumber = postNumber;
+        this.prompt = prompt;
+        this.votes = 0;
+        this.username = username;
+        this.replies = new ArrayList<Reply>();
+        this.timeCreated = java.time.LocalTime.now();
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public int getGrade() {
+        return this.grade;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void addCount() {
+        this.postNumber++;
+    }
+
+    public void setPostNumber(int postNumber) {
+        this.postNumber = postNumber;
+    }
+
+    public int getPostNumber() {
+        return postNumber;
+    }
+
+    public void addVote() {
+        this.votes++;
+    }
+
+    public LocalTime getTimeCreated() {
+        return this.timeCreated;
+    }
+
+    public int getVotes() {
+        return this.votes;
+    }
+
+    public void addReply(Reply reply) {
+        this.replies.add(reply);
+    }
+
+    public ArrayList<Reply> getReplies() {
+        return this.replies;
+    }
+
+    public class VoteComparator implements Comparator<Reply> {
+        public int compare(Reply r1, Reply r2) {
+            return r2.getVotes() - r1.getVotes();
+        }
+    }
+
+    public void sortRepliesByVotes() {
+        Collections.sort(replies, new VoteComparator());
+    }
+
+    public class TimeComparator implements Comparator<Reply> {
+        public int compare(Reply r1, Reply r2) {
+            int result = r2.getTimeCreated().compareTo(r1.getTimeCreated());
+            return result;
+        }
+    }
+
+    public void sortRepliesByTime() {
+        Collections.sort(replies, new TimeComparator());
+        ArrayList<Reply> finalList = new ArrayList<>();
+    }
+
+    public String getTopic() {
+        return this.topic;
+    }
+
+    public String getPrompt() {
+        return this.prompt;
+    }
+
+    public int numReplies() {
+        return this.replies.size();
+    }
+
+    public String toString() {
+        String returnStatement = "PPPP%%" + getPrompt() + "%%" + getUsername() + "%%" + getPostNumber() + "%%" +
+            getVotes() + "%%" + getTimeCreated();
+        for (Reply r : replies) {
+            returnStatement = returnStatement + r.toString() + "\n";
+        }
+        return returnStatement;
+    }
+
+}
