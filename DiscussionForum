@@ -1,0 +1,105 @@
+import java.time.LocalTime;
+import java.util.ArrayList;
+
+/**
+ * Discussion Forum class
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2021</p>
+ *
+ * @author Aditi Patel Purdue CS
+ * @version December 12, 2021
+ */
+
+
+public class DiscussionForum {
+    private String discussionTitle;
+    private String discussionPrompt;
+    private ArrayList<DiscussionPost> posts;
+    private LocalTime timeCreated;
+    private int grade;
+
+
+    /**
+     * Creates a discussion forum object with the title and prompt
+     */
+
+    public DiscussionForum(String discussionTitle, String discussionPrompt) {
+        this.discussionTitle = discussionTitle;
+        this.discussionPrompt = discussionPrompt;
+        this.posts = new ArrayList<DiscussionPost>();
+        this.timeCreated = java.time.LocalTime.now();
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public LocalTime getTimeCreated() {
+        return timeCreated;
+    }
+
+
+    /**
+     * allows the user to add a post to a discussion forum
+     */
+
+    public void addPost(DiscussionPost post) {
+        posts.add(post);
+    }
+
+
+    /**
+     * returns the title of the discussion forum
+     */
+
+
+    public String getDiscussionTitle() {
+        return discussionTitle;
+    }
+
+    /**
+     * returns the prompt of the discussion forum
+     */
+
+    public String getDiscussionPrompt() {
+        return discussionPrompt;
+    }
+
+    /**
+     * returns the arraylist of posts
+     */
+
+    public ArrayList<DiscussionPost> getPosts() {
+        return this.posts;
+    }
+
+    /**
+     * prints the title and prompt of the discussion forum
+     */
+
+
+    public void viewForum(String forumName) {
+        System.out.println(getDiscussionTitle() + "\n" + getDiscussionPrompt());
+    }
+
+    public DiscussionPost findPost(int postNumber) {
+        for (int i = 0; i < posts.size(); i++) {
+            if (postNumber == posts.get(i).getPostNumber()) {
+                return posts.get(i);
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String returnString = "FFFF%%" + getDiscussionTitle() + "%%" + getDiscussionPrompt() + "%%" + getTimeCreated() + "\n";
+
+
+        for (DiscussionPost dp : posts) {
+            returnString = returnString + dp.toString() + "\n";
+        }
+        return returnString;
+    }
+}
